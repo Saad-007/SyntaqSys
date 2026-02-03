@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- SYNTAQ COLOR PALETTE --- */
+  --color-brand-black: #050505;
+  --color-brand-dark: #0A0A0A;
+  --color-brand-gray: #1F2937;
+  --color-brand-cyan: #00E5FF;
+  --color-brand-blue: #2563EB;
+
+  /* --- ANIMATIONS --- */
+  --animate-grid-flow: grid-flow 20s linear infinite;
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes grid-flow {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(24px); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* --- BACKGROUND PATTERNS --- */
+  --image-grid-pattern: linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px);
+  --image-glow-radial: radial-gradient(circle, rgba(0,229,255,0.15) 0%, rgba(5,5,5,0) 70%);
+}
+
+/* --- GLOBAL RESETS --- */
+body {
+  background-color: var(--color-brand-black);
+  color: white;
+  overflow-x: hidden;
+}
+html {
+  scroll-behavior: smooth;
+}
