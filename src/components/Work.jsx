@@ -71,10 +71,10 @@ const ProjectCard = ({ project, index }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ 
-        duration: 1, 
+        duration: 0.8, 
         delay: index * 0.1, 
         ease: [0.23, 1, 0.32, 1] 
       }}
@@ -82,7 +82,8 @@ const ProjectCard = ({ project, index }) => {
       style={{
         perspective: 1000
       }}
-      className="group w-full h-[500px] md:h-[600px] cursor-pointer"
+      // RESPONSIVE HEIGHT: h-[400px] on mobile, h-[600px] on desktop
+      className="group w-full h-[400px] md:h-[600px] cursor-pointer"
     >
       <motion.div
         style={{
@@ -99,41 +100,41 @@ const ProjectCard = ({ project, index }) => {
            <img 
             src={project.image} 
             alt={project.title} 
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100 grayscale group-hover:grayscale-0"
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100 md:grayscale md:group-hover:grayscale-0"
           />
         </div>
 
-        {/* Dark Overlay (Fades in on hover) */}
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 pointer-events-none" />
+        {/* Dark Overlay (Always visible on mobile for text readability, fade on desktop) */}
+        <div className="absolute inset-0 bg-black/30 md:bg-black/20 md:group-hover:bg-black/40 transition-colors duration-500 pointer-events-none" />
 
         {/* --- FLOATING CONTENT (Moves in 3D) --- */}
-        <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12 pointer-events-none">
+        <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-12 pointer-events-none">
           
           {/* Top Right Icon */}
-          <div className="self-end translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-             <div className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center rounded-full">
-                <ArrowUpRight className="text-white" />
+          <div className="self-end translate-y-0 md:translate-y-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500">
+             <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center rounded-full">
+                <ArrowUpRight className="text-white w-5 h-5 md:w-6 md:h-6" />
              </div>
           </div>
 
           {/* Bottom Content Area */}
           <div className="translate-z-10">
-            {/* Category Label (Slides Up) */}
-            <div className="overflow-hidden mb-2">
-              <p className={`text-xs font-bold tracking-[0.2em] uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-500 delay-100 text-white/80`}>
+            {/* Category Label */}
+            <div className="overflow-hidden mb-1 md:mb-2">
+              <p className={`text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-500 delay-100 text-white/80`}>
                 {project.category}
               </p>
             </div>
 
             {/* Title (Big & Bold) */}
-            <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-2 md:mb-4 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
               {project.title}
             </h3>
 
             {/* Client Name & Line */}
-            <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-               <div className={`h-[2px] w-12 bg-white`} />
-               <span className="text-sm font-mono text-gray-300 uppercase tracking-widest">
+            <div className="flex items-center gap-3 md:gap-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-200">
+               <div className={`h-[2px] w-8 md:w-12 bg-white`} />
+               <span className="text-xs md:text-sm font-mono text-gray-300 uppercase tracking-widest">
                  {project.client}
                </span>
             </div>
@@ -147,15 +148,15 @@ const ProjectCard = ({ project, index }) => {
 
 const Work = () => {
   return (
-    <section id="work" className="py-32 bg-[#F5F5F7] relative overflow-hidden font-sans">
+    <section id="work" className="py-20 md:py-32 bg-[#F5F5F7] relative overflow-hidden font-sans">
       
       {/* Background Decor (Subtle Light Leak) */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[100px] opacity-60 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-white rounded-full blur-[80px] md:blur-[100px] opacity-60 pointer-events-none" />
 
       <div className="container mx-auto px-6 md:px-12">
         
         {/* --- SECTION HEADER --- */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -163,8 +164,8 @@ const Work = () => {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-3 mb-4">
-               <div className="w-12 h-[2px] bg-black/20" />
-               <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/40">Portfolio</span>
+               <div className="w-8 md:w-12 h-[2px] bg-black/20" />
+               <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-black/40">Portfolio</span>
             </div>
             <h2 className="text-5xl md:text-8xl font-black text-black uppercase tracking-tighter leading-[0.9]">
               Selected <br/>
@@ -187,16 +188,17 @@ const Work = () => {
         </div>
 
         {/* --- PROJECT GRID --- */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
         {/* Mobile Button */}
-        <div className="mt-16 flex md:hidden justify-center">
-          <button className="flex items-center gap-3 px-8 py-4 bg-black text-white rounded-full w-full justify-center">
+        <div className="mt-12 flex md:hidden justify-center">
+          <button className="flex items-center gap-3 px-8 py-4 bg-black text-white rounded-full w-full justify-center shadow-lg active:scale-95 transition-transform">
             <span className="font-bold tracking-widest text-sm uppercase">View All Projects</span>
+            <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
 

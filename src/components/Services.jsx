@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Cpu, Globe, Video, Play, X, Instagram } from "lucide-react";
 
 // --- IMPORT LOCAL VIDEOS ---
@@ -7,7 +7,7 @@ import myVideo1 from '../assets/video/minimal.mp4';
 import myVideo2 from '../assets/video/Newcar.mp4';
 import myVideo3 from '../assets/video/New.mp4';
 
-// --- DATA: SERVICES (Blockchain Removed) ---
+// --- DATA: SERVICES ---
 const services = [
   {
     id: "01",
@@ -15,6 +15,7 @@ const services = [
     description: "Intelligent agents & workflows that replace manual labor.",
     tags: ["LLM Integration", "Chatbots", "Python"],
     icon: <Cpu className="w-5 h-5" />,
+    video: myVideo1, 
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
   },
   {
@@ -23,6 +24,7 @@ const services = [
     description: "High-performance SaaS & E-Commerce platforms.",
     tags: ["React.js", "Node.js", "Next.js"],
     icon: <Globe className="w-5 h-5" />,
+    video: myVideo3,
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
   },
   {
@@ -31,19 +33,20 @@ const services = [
     description: "High-retention video assets for social dominance.",
     tags: ["Premiere", "After Effects", "Sound"],
     icon: <Video className="w-5 h-5" />,
-    image: "https://unsplash.com/photos/a-purple-square-button-with-the-word-ae-on-it-uJaxWQXjWn0"
+    
+    // --- FIXED: Direct Link to the AE Purple Square Image ---
+    video: null, 
+    image: "https://images.unsplash.com/photo-1642425149556-b2f34051f28c?auto=format&fit=crop&w=1080&q=80"
   }
 ];
 
 // --- DATA: VIDEO SAMPLES ---
-// Strategy: Use dark, atmospheric thumbnails so text pops and it looks premium before playing.
 const videoSamples = [
   { 
     id: 1, 
     title: "Viral Minimal", 
     client: "Agency",
     videoSrc: myVideo1, 
-    // Dark Abstract Texture
     thumbnail: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop", 
     stats: "2.4M"
   },
@@ -52,7 +55,6 @@ const videoSamples = [
     title: "Tech Launch", 
     client: "Sony",
     videoSrc: myVideo2,
-    // Dark Automotive/Tech Vibe
     thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2670&auto=format&fit=crop",
     stats: "850K"
   },
@@ -61,7 +63,6 @@ const videoSamples = [
     title: "Luxury Travel", 
     client: "Ritz",
     videoSrc: myVideo3,
-    // Dark Mood/Travel Vibe
     thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2574&auto=format&fit=crop",
     stats: "1.2M"
   }
@@ -123,15 +124,11 @@ const TiltCard = ({ video, onClick, isHovered, onHover, onLeave }) => {
       className="relative w-[280px] h-[500px] md:w-[320px] md:h-[560px] rounded-2xl cursor-pointer perspective-1000"
     >
        <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl">
-          
-          {/* 1. BEST THUMBNAIL STRATEGY: High Quality Dark Image */}
           <img 
             src={video.thumbnail} 
             alt={video.title} 
             className={`w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
           />
-
-          {/* 2. VIDEO PREVIEW (Shows on Hover) */}
           <video
             ref={videoRef}
             src={video.videoSrc}
@@ -140,34 +137,23 @@ const TiltCard = ({ video, onClick, isHovered, onHover, onLeave }) => {
             playsInline
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
           />
-          
-          {/* 3. UNIVERSAL GRADIENT (Makes text readable on any image) */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90 pointer-events-none" />
-          
-          {/* 4. NOISE TEXTURE (Premium Film Grain Effect) */}
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
-
-          {/* PLAY ICON */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
              <div className={`w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 transition-all duration-300 ${isHovered ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}>
                 <Play className="w-6 h-6 fill-white text-white ml-1" />
              </div>
           </div>
-
-          {/* STATS BADGE */}
           <div className="absolute top-4 right-4 z-20">
              <div className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-full flex items-center gap-1 border border-white/10">
                 <Instagram className="w-3 h-3 text-pink-500" />
                 <span className="text-[10px] font-bold tracking-wider text-white">{video.stats}</span>
              </div>
           </div>
-
-          {/* INFO */}
           <div className="absolute bottom-0 left-0 w-full p-6 z-20 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
              <p className="text-purple-400 text-xs font-mono mb-1 tracking-widest uppercase">{video.client}</p>
              <h3 className="text-2xl font-black uppercase leading-none text-white">{video.title}</h3>
           </div>
-
        </div>
     </motion.div>
   );
@@ -210,6 +196,8 @@ const Services = () => {
              </motion.h2>
           </div>
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-32">
+            
+            {/* Left: List */}
             <div className="w-full lg:w-1/2 flex flex-col">
               {services.map((service, index) => (
                 <div key={service.id} onMouseEnter={() => setActiveService(index)} className="group relative border-t border-black/10 last:border-b py-10 cursor-pointer transition-all duration-300">
@@ -233,12 +221,39 @@ const Services = () => {
                 </div>
               ))}
             </div>
+
+            {/* Right: Sticky Visual */}
             <div className="hidden lg:block w-1/2 relative h-[700px]">
                <div className="sticky top-32 w-full h-full">
-                  <div className="relative w-full h-[600px] rounded-2xl overflow-hidden bg-white shadow-2xl border border-white/40">
+                  <div className="relative w-full h-[600px] rounded-2xl overflow-hidden bg-black shadow-2xl border border-white/40">
                      <AnimatePresence mode='wait'>
-                       <motion.img key={activeService} src={services[activeService].image} initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="absolute inset-0 w-full h-full object-cover" />
+                       <motion.div 
+                          key={activeService}
+                          initial={{ opacity: 0, scale: 1.1 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                          className="absolute inset-0 w-full h-full"
+                       >
+                          {services[activeService].video ? (
+                             <video 
+                                src={services[activeService].video}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="w-full h-full object-cover"
+                             />
+                          ) : (
+                             <img 
+                                src={services[activeService].image}
+                                className="w-full h-full object-cover"
+                                alt={services[activeService].title}
+                             />
+                          )}
+                       </motion.div>
                      </AnimatePresence>
+                     
                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                      <div className="absolute bottom-10 left-10">
                         <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white">
@@ -253,7 +268,7 @@ const Services = () => {
         </div>
       </div>
 
-      {/* PART 2: VERTICAL CONTENT STUDIO */}
+      {/* PART 2 & 3: (Unchanged sections would go here) */}
       <div className="py-32 bg-[#050505] relative overflow-hidden text-white">
          <div className="container mx-auto px-6 relative z-10">
             <div className="flex flex-col items-center text-center mb-20">
@@ -280,7 +295,6 @@ const Services = () => {
          </div>
       </div>
 
-      {/* PART 3: VIDEO MODAL */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div 
@@ -310,7 +324,6 @@ const Services = () => {
                   controls
                   loop
                />
-               
                <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
                   <h3 className="text-xl font-bold text-white">{selectedVideo.title}</h3>
                   <p className="text-xs text-gray-300 uppercase tracking-widest">{selectedVideo.client}</p>

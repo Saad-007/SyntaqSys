@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin, Send, Check, Copy } from "lucide-react";
-// Add Linkedin and Instagram to this list
-import { Linkedin, Instagram } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Send, Check, Copy, Linkedin, Instagram } from "lucide-react";
+
 // --- COMPONENT: 3D TILT CONTACT CARD (With Premium Shine) ---
 const ContactCard = () => {
   const x = useMotionValue(0);
@@ -41,7 +40,8 @@ const ContactCard = () => {
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => { x.set(0); y.set(0); }}
-      className="relative w-full max-w-md aspect-[4/5] md:aspect-square perspective-1000 group cursor-pointer"
+      // RESPONSIVE: aspect-auto on mobile, square on desktop
+      className="relative w-full md:max-w-md aspect-[4/5] md:aspect-square perspective-1000 group cursor-pointer h-[400px] md:h-auto"
       onClick={handleCopy}
     >
       <div className="relative w-full h-full rounded-2xl bg-[#050505] text-white p-8 md:p-12 shadow-2xl overflow-hidden border border-white/10 flex flex-col justify-between">
@@ -63,7 +63,7 @@ const ContactCard = () => {
               <Mail className="w-5 h-5 text-white" />
            </div>
            <p className="text-gray-500 font-mono text-[10px] uppercase tracking-widest mb-2">General Inquiries</p>
-           {/* UPDATED EMAIL SIZE: text-xl (Small enough to fit, big enough to read) */}
+           {/* UPDATED EMAIL SIZE */}
            <h3 className="text-lg md:text-xl font-bold tracking-tight break-all">syntaqsystem@gmail.com</h3>
            
            {/* Copied Badge */}
@@ -103,8 +103,8 @@ const ContactCard = () => {
 const InputField = ({ label, type = "text", placeholder }) => {
     const [focused, setFocused] = useState(false);
     return (
-        <div className="relative group">
-            <label className={`block text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-300 ${focused ? "text-black" : "text-gray-400"}`}>
+        <div className="relative group w-full">
+            <label className={`block text-xs font-bold uppercase tracking-widest mb-2 md:mb-3 transition-colors duration-300 ${focused ? "text-black" : "text-gray-400"}`}>
             {label}
             </label>
             <div className="relative">
@@ -113,8 +113,7 @@ const InputField = ({ label, type = "text", placeholder }) => {
                     placeholder={placeholder}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
-                    // Adjusted input text size for better balance
-                    className="w-full bg-transparent border-b border-gray-200 py-4 text-lg md:text-xl font-medium text-black placeholder-gray-300 focus:outline-none transition-colors"
+                    className="w-full bg-transparent border-b border-gray-200 py-3 md:py-4 text-lg md:text-xl font-medium text-black placeholder-gray-300 focus:outline-none transition-colors"
                 />
                 <motion.div 
                     initial={{ width: "0%" }}
@@ -129,24 +128,24 @@ const InputField = ({ label, type = "text", placeholder }) => {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-32 bg-[#F5F5F7] relative overflow-hidden font-sans">
+    <section id="contact" className="py-20 md:py-32 bg-[#F5F5F7] relative overflow-hidden font-sans">
       
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-0 w-[1200px] h-[1200px] bg-white rounded-full blur-[150px] opacity-70 pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/2 left-0 w-[800px] h-[800px] bg-white rounded-full blur-[100px] opacity-70 pointer-events-none -translate-x-1/2 -translate-y-1/2" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* --- HEADER --- */}
-        <div className="mb-24 text-center md:text-left">
+        <div className="mb-16 md:mb-24 text-center md:text-left">
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
              viewport={{ once: true }}
-             className="inline-flex items-center gap-3 mb-6"
+             className="inline-flex items-center gap-3 mb-4 md:mb-6"
            >
-              <div className="w-12 h-[2px] bg-black/20" />
-              <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/40">Start a Project</span>
+              <div className="w-8 md:w-12 h-[2px] bg-black/20" />
+              <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-black/40">Start a Project</span>
            </motion.div>
            <motion.h2 
              initial={{ opacity: 0, y: 30 }}
@@ -163,85 +162,80 @@ const Contact = () => {
         </div>
 
         {/* --- CONTENT GRID --- */}
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-start">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-32 items-start">
           
           {/* LEFT: 3D CARD & SOCIALS */}
-          <div className="w-full lg:w-1/3 space-y-16">
+          <div className="w-full lg:w-1/3 space-y-12 md:space-y-16">
              <ContactCard />
              
              {/* Social Links */}
-             <div className="space-y-8">
+             <div className="space-y-6 md:space-y-8">
                 <p className="text-xs font-bold uppercase tracking-widest text-black/40">Connect</p>
                 <div className="flex flex-col gap-2">
-  {[
-    {
-      name: "LinkedIn",
-      icon: <Linkedin size={14} />,
-      url: "https://www.linkedin.com/in/saad-safeer-11b9b227a/",
-    },
-    {
-      name: "Instagram",
-      icon: <Instagram size={14} />,
-      url: "https://www.instagram.com/syntaqsystem/",
-    },
-  ].map((social, i) => (
-    <motion.a
-      key={social.name}
-      href={social.url}
-      target="_blank" // Opens in new tab
-      rel="noopener noreferrer" // Security best practice
-      initial={{ opacity: 0, x: -10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.2 + i * 0.1 }}
-      className="flex items-center justify-between group py-4 border-b border-gray-200 hover:border-black transition-colors cursor-pointer"
-    >
-      <div className="flex items-center gap-3">
-        {/* Optional: Show icon next to name if you want */}
-        {/* <span className="text-gray-400 group-hover:text-black transition-colors">{social.icon}</span> */}
-        
-        {/* --- FIX IS HERE: social.name instead of social --- */}
-        <span className="text-lg font-medium text-gray-400 group-hover:text-black transition-colors">
-          {social.name}
-        </span>
-      </div>
-      
-      <ArrowUpRight className="w-5 h-5 text-gray-300 group-hover:text-black group-hover:rotate-45 transition-all duration-300" />
-    </motion.a>
-  ))}
-</div>
+                  {[
+                    {
+                      name: "LinkedIn",
+                      icon: <Linkedin size={14} />,
+                      url: "https://www.linkedin.com/in/saad-safeer-11b9b227a/",
+                    },
+                    {
+                      name: "Instagram",
+                      icon: <Instagram size={14} />,
+                      url: "https://www.instagram.com/syntaqsystem/",
+                    },
+                  ].map((social, i) => (
+                    <motion.a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + i * 0.1 }}
+                      className="flex items-center justify-between group py-3 md:py-4 border-b border-gray-200 hover:border-black transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-lg font-medium text-gray-400 group-hover:text-black transition-colors">
+                          {social.name}
+                        </span>
+                      </div>
+                      
+                      <ArrowUpRight className="w-5 h-5 text-gray-300 group-hover:text-black group-hover:rotate-45 transition-all duration-300" />
+                    </motion.a>
+                  ))}
+                </div>
              </div>
           </div>
 
-          {/* RIGHT: INTERACTIVE FORM (Budget Removed) */}
+          {/* RIGHT: INTERACTIVE FORM */}
           <div className="w-full lg:w-2/3">
-             <form className="space-y-16">
+             <form className="space-y-12 md:space-y-16">
                 
-                <div className="grid md:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                    <InputField label="01. What's your name?" placeholder="John Doe" />
                    <InputField label="02. What's your email?" type="email" placeholder="john@example.com" />
                 </div>
 
                 <InputField label="03. What services do you need?" placeholder="Web Dev, AI, Video Editing..." />
                 
-                {/* 04. Message Area (Re-numbered) */}
+                {/* 04. Message Area */}
                 <div className="relative group pt-4">
-                  <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-4 group-focus-within:text-black transition-colors">
+                  <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 md:mb-4 group-focus-within:text-black transition-colors">
                     04. Tell us about your project
                   </label>
                   <div className="relative">
                     <textarea 
-                        rows="6" // Increased height since budget is gone
+                        rows="6"
                         placeholder="Describe your goals, timeline, and vision..."
-                        className="w-full bg-transparent border-b border-gray-200 py-4 text-lg md:text-xl font-medium text-black placeholder-gray-300 focus:outline-none resize-none transition-colors"
+                        className="w-full bg-transparent border-b border-gray-200 py-3 md:py-4 text-lg md:text-xl font-medium text-black placeholder-gray-300 focus:outline-none resize-none transition-colors"
                     ></textarea>
-                    {/* Focus Line for Textarea */}
                     <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-black transition-all duration-500 ease-out group-focus-within:w-full" />
                   </div>
                 </div>
 
                 {/* Submit Button */}
-                <div className="pt-8">
-                   <button className="group relative px-12 py-6 bg-black text-white rounded-full overflow-hidden flex items-center gap-5 transition-transform active:scale-95">
+                <div className="pt-4 md:pt-8">
+                   <button className="group relative w-full md:w-auto px-12 py-5 md:py-6 bg-black text-white rounded-full overflow-hidden flex items-center justify-center gap-5 transition-transform active:scale-95">
                       <div className="absolute inset-0 w-full h-full bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
                       <span className="relative font-bold tracking-[0.2em] uppercase text-xs">Send Message</span>
                       <Send className="relative w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
