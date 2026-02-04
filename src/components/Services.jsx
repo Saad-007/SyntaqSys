@@ -15,7 +15,6 @@ const services = [
     description: "Intelligent agents & workflows that replace manual labor.",
     tags: ["LLM Integration", "Chatbots", "Python"],
     icon: <Cpu className="w-5 h-5" />,
-    video: myVideo1, 
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
   },
   {
@@ -24,7 +23,6 @@ const services = [
     description: "High-performance SaaS & E-Commerce platforms.",
     tags: ["React.js", "Node.js", "Next.js"],
     icon: <Globe className="w-5 h-5" />,
-    video: myVideo3,
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
   },
   {
@@ -35,8 +33,8 @@ const services = [
     icon: <Video className="w-5 h-5" />,
     
     // --- FIXED: Direct Link to the AE Purple Square Image ---
-    video: null, 
-    image: "https://images.unsplash.com/photo-1642425149556-b2f34051f28c?auto=format&fit=crop&w=1080&q=80"
+    
+    image: "https://images.unsplash.com/photo-1740174459691-5b93c2fa0592?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 ];
 
@@ -47,7 +45,7 @@ const videoSamples = [
     title: "Viral Minimal", 
     client: "Agency",
     videoSrc: myVideo1, 
-    thumbnail: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop", 
+    // thumbnail: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop", 
     stats: "2.4M"
   },
   { 
@@ -55,7 +53,7 @@ const videoSamples = [
     title: "Tech Launch", 
     client: "Sony",
     videoSrc: myVideo2,
-    thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2670&auto=format&fit=crop",
+    // thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2670&auto=format&fit=crop",
     stats: "850K"
   },
   { 
@@ -63,7 +61,7 @@ const videoSamples = [
     title: "Luxury Travel", 
     client: "Ritz",
     videoSrc: myVideo3,
-    thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2574&auto=format&fit=crop",
+    // thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2574&auto=format&fit=crop",
     stats: "1.2M"
   }
 ];

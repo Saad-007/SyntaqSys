@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Play, Cpu } from "lucide-react";
-// Ensure this path is correct based on your project structure
 import myEditingVideo from '../assets/video/Newcar.mp4'; 
 
 // --- ANIMATION VARIANTS ---
@@ -16,29 +15,42 @@ const containerVariants = {
   }
 };
 
+// --- UPDATED: SMOOTH 30 DEGREE ENTRANCE ---
 const cardVariants = {
   hidden: (direction) => ({
     opacity: 0,
-    y: 50,
-    // On mobile, we might not want extreme X offsets, so we reduce them
-    x: direction === 'left' ? -50 : 50,
-    filter: "blur(10px)",
-    scale: 0.9
+    // Start from further down
+    y: 150, 
+    // Slide in from further out
+    x: direction === 'left' ? -200 : 200, 
+    // The specific 30 degree rotation you asked for
+    rotate: direction === 'left' ? -30 : 30, 
+    filter: "blur(20px)",
+    scale: 0.8
   }),
-  visible: {
+  visible: (direction) => ({
     opacity: 1,
     y: 0,
     x: 0,
-    rotate: 0, // Reset rotation for cleaner mobile look, or keep slight tilt
+    // Settle at a slight angle for style (or use 0 for perfectly straight)
+    rotate: direction === 'left' ? -6 : 6, 
     filter: "blur(0px)",
     scale: 1,
-    transition: { type: "spring", damping: 25, stiffness: 100 }
-  }
+    transition: {
+      // Custom Bezier curve for "Beautiful/Smooth" motion
+      duration: 1.4, 
+      ease: [0.25, 1, 0.5, 1] 
+    }
+  })
 };
 
 const floatAnimation = {
-  y: [-8, 8, -8],
-  transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+  y: [-10, 10, -10],
+  transition: {
+    duration: 6,
+    repeat: Infinity,
+    ease: "easeInOut"
+  }
 };
 
 const textVariants = {
@@ -57,14 +69,13 @@ const HeroContent = ({ isZoomed = false }) => (
     variants={containerVariants}
     initial="hidden"
     animate="visible"
-    // RESPONSIVE FIX: flex-col for mobile, flex-row for desktop
-    // Added gap-8 for mobile spacing, gap-32 for desktop
+    // RESPONSIVE LAYOUT: flex-col on mobile, flex-row on desktop
     className={`
-        flex flex-col md:flex-row items-center justify-center 
-        gap-10 md:gap-32 
-        origin-center transition-transform duration-700 ease-out 
-        ${isZoomed ? 'scale-105 md:scale-125' : 'scale-100'}
-        pt-20 md:pt-0 // Push content down slightly on mobile to clear navbar
+      flex flex-col md:flex-row items-center justify-center 
+      gap-10 md:gap-32 
+      origin-center transition-transform duration-700 ease-out 
+      pt-24 md:pt-0 
+      ${isZoomed ? 'scale-105 md:scale-125' : 'scale-100'}
     `}
   >
     
@@ -73,7 +84,7 @@ const HeroContent = ({ isZoomed = false }) => (
       custom="left"
       variants={cardVariants}
       animate={!isZoomed ? floatAnimation : {}} 
-      whileHover={{ scale: 1.05, transition: { duration: 0.4 } }}
+      whileHover={{ scale: 1.05, rotate: -2, transition: { duration: 0.4 } }}
       className={`
         relative w-64 h-[350px] md:w-80 md:h-[500px] rounded-2xl overflow-hidden 
         bg-black shadow-2xl group shrink-0
@@ -102,7 +113,7 @@ const HeroContent = ({ isZoomed = false }) => (
       </div>
     </motion.div>
 
-    {/* CENTER TEXT: SYNTAQ (Reordered for visual hierarchy if needed, but center usually works) */}
+    {/* CENTER TEXT: SYNTAQ */}
     <motion.div 
       variants={textVariants}
       className="flex items-center justify-center z-10 py-4 md:py-0"
@@ -123,7 +134,7 @@ const HeroContent = ({ isZoomed = false }) => (
       custom="right"
       variants={cardVariants}
       animate={!isZoomed ? { ...floatAnimation, transition: { ...floatAnimation.transition, delay: 1 } } : {}} 
-      whileHover={{ scale: 1.05, transition: { duration: 0.4 } }}
+      whileHover={{ scale: 1.05, rotate: 2, transition: { duration: 0.4 } }}
       className={`
         relative w-64 h-[350px] md:w-80 md:h-[500px] rounded-2xl overflow-hidden 
         bg-black shadow-2xl group shrink-0
@@ -179,8 +190,7 @@ const Hero = () => {
     x.set(clientX - innerWidth / 2);
     y.set(clientY - innerHeight / 2);
 
-    // HIDE LENS LOGIC:
-    // If mouse is near top (Navbar area), hide lens
+    // Hide lens if near the navbar (top 120px)
     if (clientY < 120) {
        setHideLens(true);
     } else {
@@ -192,7 +202,7 @@ const Hero = () => {
     <section 
       ref={containerRef} 
       onMouseMove={handleMouseMove}
-      // RESPONSIVE HEIGHT: h-auto min-h-screen for mobile scrolling, h-screen fixed for desktop
+      // RESPONSIVE HEIGHT: Auto on mobile to fit content, Screen on desktop
       className="relative w-full min-h-screen md:h-screen bg-[#F5F5F7] overflow-hidden flex flex-col items-center justify-center font-sans py-20 md:py-0"
     >
       
@@ -207,7 +217,7 @@ const Hero = () => {
       </motion.div>
 
       {/* =========================================================
-          LAYER 1: REALITY (Sharp, Fully Visible)
+          LAYER 1: REALITY
       ========================================================= */}
       <div className="relative z-10 pointer-events-none select-none">
          <HeroContent isZoomed={false} />
@@ -215,12 +225,8 @@ const Hero = () => {
 
 
       {/* =========================================================
-          LAYER 2: THE WATER BALL (The Lens)
+          LAYER 2: THE WATER BALL (Z-Index 30 to sit below Navbar)
       ========================================================= */}
-      {/* Z-INDEX FIX: Changed to z-30. 
-          The Navbar (z-50) will now sit ON TOP of this ball. 
-          The ball will slide under the navbar.
-      */}
       <motion.div 
         style={{ x: mouseX, y: mouseY }}
         className={`
@@ -231,7 +237,6 @@ const Hero = () => {
             ${hideLens ? 'opacity-0' : 'opacity-100'}
             hidden md:block 
         `}
-        // NOTE: hidden md:block -> Hides ball on mobile (optional, but recommended for performance/usability)
       >
         <motion.div 
            animate={{
@@ -246,7 +251,7 @@ const Hero = () => {
            
            className="relative w-full h-full overflow-hidden bg-[#F5F5F7] shadow-[inset_15px_15px_40px_rgba(255,255,255,1),_inset_-15px_-15px_40px_rgba(0,0,0,0.1),_10px_20px_50px_rgba(0,0,0,0.2)] border-[2px] border-white/40"
         >
-          {/* CONTENT INSIDE (Zoomed & Pinned) */}
+          {/* CONTENT INSIDE */}
           <motion.div 
             style={{ x: innerX, y: innerY }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-screen h-screen"
@@ -254,7 +259,7 @@ const Hero = () => {
              <HeroContent isZoomed={true} />
           </motion.div>
 
-          {/* === WATER SHINE & REFLECTIONS === */}
+          {/* REFLECTIONS */}
           <div className="absolute top-10 left-12 w-32 h-16 bg-gradient-to-br from-white to-transparent opacity-90 rounded-full blur-[5px] rotate-[-25deg]" />
           <div className="absolute top-4 left-1/2 -translate-x-1/2 w-40 h-2 bg-white opacity-50 rounded-full blur-[3px]" />
           <div className="absolute bottom-12 right-14 w-20 h-20 bg-white opacity-30 rounded-full blur-[12px]" />
