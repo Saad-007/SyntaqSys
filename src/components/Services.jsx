@@ -61,16 +61,16 @@ const videoSamples = [
   },
   { 
     id: 2, 
-    title: "Tech Launch", 
-    client: "Sony",
+    title: "Taking head Instagram reel", 
+    client: "Creator",
     videoSrc: myVideo2,
     thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2670&auto=format&fit=crop",
     stats: "850K"
   },
   { 
     id: 3, 
-    title: "Luxury Travel", 
-    client: "Ritz",
+    title: "Houston Kold editiny", 
+    client: "Instagram",
     videoSrc: myVideo3,
     thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2574&auto=format&fit=crop",
     stats: "1.2M"
