@@ -209,14 +209,24 @@ const Contact = () => {
 
           {/* RIGHT: INTERACTIVE FORM */}
           <div className="w-full lg:w-2/3">
-             <form className="space-y-12 md:space-y-16">
+             <form 
+             action="https://formspree.io/f/xwvnelvb"
+             method='POST'
+             className="space-y-12 md:space-y-16">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                   <InputField label="01. What's your name?" placeholder="John Doe" />
-                   <InputField label="02. What's your email?" type="email" placeholder="john@example.com" />
+                   <InputField label="01. What's your name?" 
+                   name="name"
+                   placeholder="John Doe" />
+                   <InputField label="02. What's your email?" 
+                   name="email"
+                   type="email" placeholder="john@example.com" />
                 </div>
 
-                <InputField label="03. What services do you need?" placeholder="Web Dev, AI, Video Editing..." />
+
+                <InputField label="03. What services do you need?" 
+                 name="service"
+                placeholder="Web Dev, AI, Video Editing..." />
                 
                 {/* 04. Message Area */}
                 <div className="relative group pt-4">
@@ -225,6 +235,7 @@ const Contact = () => {
                   </label>
                   <div className="relative">
                     <textarea 
+                    name="message"
                         rows="6"
                         placeholder="Describe your goals, timeline, and vision..."
                         className="w-full bg-transparent border-b border-gray-200 py-3 md:py-4 text-lg md:text-xl font-medium text-black placeholder-gray-300 focus:outline-none resize-none transition-colors"

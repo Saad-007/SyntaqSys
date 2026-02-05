@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Cpu, Globe, Video, Play, X, Instagram } from "lucide-react";
+import { ArrowUpRight, Cpu, Globe, Video, Play, X, Instagram, Megaphone } from "lucide-react";
 
 // --- IMPORT LOCAL VIDEOS ---
 import myVideo1 from '../assets/video/minimal.mp4'; 
@@ -15,7 +15,8 @@ const services = [
     description: "Intelligent agents & workflows that replace manual labor.",
     tags: ["LLM Integration", "Chatbots", "Python"],
     icon: <Cpu className="w-5 h-5" />,
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
+    // video: myVideo1, 
+    image: "https://plus.unsplash.com/premium_photo-1682002216092-efdf11860aa1?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     id: "02",
@@ -23,6 +24,7 @@ const services = [
     description: "High-performance SaaS & E-Commerce platforms.",
     tags: ["React.js", "Node.js", "Next.js"],
     icon: <Globe className="w-5 h-5" />,
+    // video: myVideo3,
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
   },
   {
@@ -31,10 +33,19 @@ const services = [
     description: "High-retention video assets for social dominance.",
     tags: ["Premiere", "After Effects", "Sound"],
     icon: <Video className="w-5 h-5" />,
-    
-    // --- FIXED: Direct Link to the AE Purple Square Image ---
-    
-    image: "https://images.unsplash.com/photo-1740174459691-5b93c2fa0592?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    // video: null, 
+    // FIXED: Direct Link to AE Image
+    image: "https://images.unsplash.com/photo-1740174459694-4da6669ef2b0?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    id: "04",
+    title: "Growth Marketing",
+    description: "Paid Ads & Social Media Management to scale your brand.",
+    tags: ["Meta Ads", "YouTube Growth", "Content Strategy"],
+    icon: <Megaphone className="w-5 h-5" />,
+    // video: null,
+    // Image representing ads/analytics
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
@@ -45,7 +56,7 @@ const videoSamples = [
     title: "Viral Minimal", 
     client: "Agency",
     videoSrc: myVideo1, 
-    // thumbnail: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop", 
+    thumbnail: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop", 
     stats: "2.4M"
   },
   { 
@@ -53,7 +64,7 @@ const videoSamples = [
     title: "Tech Launch", 
     client: "Sony",
     videoSrc: myVideo2,
-    // thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2670&auto=format&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2670&auto=format&fit=crop",
     stats: "850K"
   },
   { 
@@ -61,7 +72,7 @@ const videoSamples = [
     title: "Luxury Travel", 
     client: "Ritz",
     videoSrc: myVideo3,
-    // thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2574&auto=format&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2574&auto=format&fit=crop",
     stats: "1.2M"
   }
 ];
@@ -119,7 +130,7 @@ const TiltCard = ({ video, onClick, isHovered, onHover, onLeave }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      className="relative w-[280px] h-[500px] md:w-[320px] md:h-[560px] rounded-2xl cursor-pointer perspective-1000"
+      className="relative w-[280px] h-[500px] md:w-[320px] md:h-[560px] rounded-2xl cursor-pointer perspective-1000 shrink-0"
     >
        <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl">
           <img 
@@ -166,10 +177,12 @@ const Services = () => {
     <section id="services" className="bg-[#F5F5F7] font-sans relative">
       
       {/* PART 1: SERVICES LIST */}
-      <div className="py-32 relative overflow-hidden">
+      <div className="py-20 md:py-32 relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-white rounded-full blur-[120px] opacity-60 pointer-events-none translate-y-1/2 -translate-x-1/2" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="mb-24">
+          
+          {/* Header */}
+          <div className="mb-12 md:mb-24">
              <motion.div 
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
@@ -193,34 +206,81 @@ const Services = () => {
                </span>
              </motion.h2>
           </div>
+
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-32">
             
-            {/* Left: List */}
+            {/* Left: List (Scrollable / Expandable) */}
             <div className="w-full lg:w-1/2 flex flex-col">
               {services.map((service, index) => (
-                <div key={service.id} onMouseEnter={() => setActiveService(index)} className="group relative border-t border-black/10 last:border-b py-10 cursor-pointer transition-all duration-300">
+                <div 
+                  key={service.id}
+                  // Interaction: Hover on Desktop, Click on Mobile
+                  onMouseEnter={() => setActiveService(index)}
+                  onClick={() => setActiveService(index)}
+                  className="group relative border-t border-black/10 last:border-b py-8 md:py-10 cursor-pointer transition-all duration-300"
+                >
                   <div className="flex justify-between items-start relative z-10">
-                    <div className="flex gap-8">
+                    <div className="flex gap-4 md:gap-8 w-full">
                       <span className={`text-sm font-mono mt-2 transition-colors duration-300 ${activeService === index ? 'text-cyan-600' : 'text-gray-300'}`}>/{service.id}</span>
-                      <div>
-                        <h3 className={`text-4xl md:text-5xl font-black uppercase tracking-tight transition-colors duration-300 ${activeService === index ? 'text-black' : 'text-gray-300'}`}>{service.title}</h3>
-                        <motion.div initial={false} animate={{ height: activeService === index ? "auto" : 0, opacity: activeService === index ? 1 : 0 }} transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }} className="overflow-hidden">
+                      <div className="flex-1">
+                        <h3 className={`text-3xl md:text-5xl font-black uppercase tracking-tight transition-colors duration-300 ${activeService === index ? 'text-black' : 'text-gray-300'}`}>
+                          {service.title}
+                        </h3>
+                        
+                        {/* EXPANDABLE CONTENT */}
+                        <motion.div 
+                          initial={false}
+                          animate={{ height: activeService === index ? "auto" : 0, opacity: activeService === index ? 1 : 0 }}
+                          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                          className="overflow-hidden"
+                        >
                           <p className="pt-6 text-gray-500 max-w-md leading-relaxed text-lg">{service.description}</p>
                           <div className="flex flex-wrap gap-2 mt-6">
-                            {service.tags.map((tag) => (<span key={tag} className="px-3 py-1 bg-white border border-black/5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-600">{tag}</span>))}
+                            {service.tags.map((tag) => (
+                              <span key={tag} className="px-3 py-1 bg-white border border-black/5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-600">{tag}</span>
+                            ))}
                           </div>
+
+                          {/* --- MOBILE VISUAL (Hidden on Desktop) --- */}
+                          <div className="mt-8 rounded-xl overflow-hidden shadow-xl lg:hidden w-full aspect-video relative bg-black">
+                             {service.video ? (
+                                <video 
+                                  src={service.video}
+                                  autoPlay 
+                                  loop 
+                                  muted 
+                                  playsInline 
+                                  className="w-full h-full object-cover"
+                                />
+                             ) : (
+                                <img 
+                                  src={service.image} 
+                                  alt={service.title}
+                                  className="w-full h-full object-cover"
+                                />
+                             )}
+                             {/* Overlay for Mobile */}
+                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                             <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                                {service.icon}
+                                <span className="text-xs font-bold uppercase tracking-widest">Preview</span>
+                             </div>
+                          </div>
+
                         </motion.div>
                       </div>
                     </div>
+                    
+                    {/* Arrow (Rotates on Active) */}
                     <div className={`transition-transform duration-500 ${activeService === index ? 'rotate-45 translate-x-2' : 'rotate-0'}`}>
-                       <ArrowUpRight className={`w-8 h-8 ${activeService === index ? 'text-cyan-600' : 'text-gray-200'}`} />
+                       <ArrowUpRight className={`w-6 h-6 md:w-8 md:h-8 ${activeService === index ? 'text-cyan-600' : 'text-gray-200'}`} />
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Right: Sticky Visual */}
+            {/* Right: Sticky Visual (Desktop Only) */}
             <div className="hidden lg:block w-1/2 relative h-[700px]">
                <div className="sticky top-32 w-full h-full">
                   <div className="relative w-full h-[600px] rounded-2xl overflow-hidden bg-black shadow-2xl border border-white/40">
@@ -266,10 +326,10 @@ const Services = () => {
         </div>
       </div>
 
-      {/* PART 2 & 3: (Unchanged sections would go here) */}
-      <div className="py-32 bg-[#050505] relative overflow-hidden text-white">
+      {/* PART 2: VERTICAL CONTENT STUDIO */}
+      <div className="py-20 md:py-32 bg-[#050505] relative overflow-hidden text-white">
          <div className="container mx-auto px-6 relative z-10">
-            <div className="flex flex-col items-center text-center mb-20">
+            <div className="flex flex-col items-center text-center mb-16 md:mb-20">
                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6">
                   <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                   <span className="text-xs font-bold tracking-widest uppercase text-gray-300">Vertical Studio</span>
@@ -278,6 +338,8 @@ const Services = () => {
                   Short Form <br/> <span className="text-purple-600">Dominance.</span>
                </h2>
             </div>
+            
+            {/* Scrollable Container on Mobile */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 perspective-[2000px]">
                {videoSamples.map((video) => (
                   <TiltCard 
@@ -293,6 +355,7 @@ const Services = () => {
          </div>
       </div>
 
+      {/* PART 3: VIDEO MODAL */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div 

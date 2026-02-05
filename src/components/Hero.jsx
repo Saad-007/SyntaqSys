@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Play, Cpu } from "lucide-react";
+// Ensure this path is correct
 import myEditingVideo from '../assets/video/Newcar.mp4'; 
 
 // --- ANIMATION VARIANTS ---
@@ -19,9 +20,9 @@ const containerVariants = {
 const cardVariants = {
   hidden: (direction) => ({
     opacity: 0,
-    // Start from further down
+    // Start from further down for dramatic effect
     y: 150, 
-    // Slide in from further out
+    // Slide in from further out (Left or Right)
     x: direction === 'left' ? -200 : 200, 
     // The specific 30 degree rotation you asked for
     rotate: direction === 'left' ? -30 : 30, 
@@ -38,12 +39,14 @@ const cardVariants = {
     scale: 1,
     transition: {
       // Custom Bezier curve for "Beautiful/Smooth" motion
+      // Starts fast, ends very slow (no bounce/legs)
       duration: 1.4, 
       ease: [0.25, 1, 0.5, 1] 
     }
   })
 };
 
+// Gentle floating animation
 const floatAnimation = {
   y: [-10, 10, -10],
   transition: {
