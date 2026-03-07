@@ -67,12 +67,12 @@ const textVariants = {
 };
 
 // --- CONTENT COMPONENT ---
+// --- UPDATED CONTENT COMPONENT ---
 const HeroContent = ({ isZoomed = false }) => (
   <motion.div 
     variants={containerVariants}
     initial="hidden"
     animate="visible"
-    // RESPONSIVE LAYOUT: flex-col on mobile, flex-row on desktop
     className={`
       flex flex-col md:flex-row items-center justify-center 
       gap-10 md:gap-32 
@@ -82,7 +82,7 @@ const HeroContent = ({ isZoomed = false }) => (
     `}
   >
     
-    {/* LEFT CARD: AUTOMATION */}
+    {/* LEFT CARD: SCALE & AUTOMATE */}
     <motion.div 
       custom="left"
       variants={cardVariants}
@@ -96,43 +96,52 @@ const HeroContent = ({ isZoomed = false }) => (
     >
       <motion.img 
         src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" 
-        className="w-full h-full object-cover opacity-80"
+        className="w-full h-full object-cover opacity-60" // Lower opacity for more "premium" feel
         whileHover={{ scale: 1.15 }}
         transition={{ duration: 0.8 }}
         alt="Automation"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/95" />
       <div className="absolute bottom-8 left-0 w-full text-center px-4">
         <motion.div 
           whileHover={{ y: -5 }}
-          className="mb-3 inline-flex p-3 rounded-none bg-green-500/20 backdrop-blur-md border border-green-400/30"
+          className="mb-3 inline-flex p-3 rounded-full bg-green-500/20 backdrop-blur-md border border-green-400/30"
         >
            <Cpu size={24} className="text-green-400" />
         </motion.div>
-        <h3 className="text-white font-black text-xl md:text-3xl uppercase tracking-widest leading-none">
-          Automation
+        <h3 className="text-white font-black text-xl md:text-3xl uppercase tracking-tighter">
+          Automate
         </h3>
-        <p className="text-green-400 text-[10px] md:text-sm font-mono mt-2 tracking-widest opacity-80">AI WORKFLOWS</p>
+        <p className="text-green-400 text-[10px] md:text-xs font-mono mt-1 tracking-[0.2em] uppercase opacity-90">
+          Systems that Scale
+        </p>
       </div>
     </motion.div>
 
-    {/* CENTER TEXT: SYNTAQ */}
-    <motion.div 
-      variants={textVariants}
-      className="flex items-center justify-center z-10 py-4 md:py-0"
-    >
-      <span 
-        className={`
-          text-6xl md:text-8xl font-black text-black tracking-[0.15em] md:tracking-[0.25em] pl-[0.15em] uppercase
-          drop-shadow-sm transition-all duration-500 text-center leading-none
-          ${isZoomed ? 'drop-shadow-2xl text-transparent bg-clip-text bg-gradient-to-b from-black to-gray-600' : ''}
-        `}
+    {/* CENTER TEXT: BRAND IDENTITY */}
+    <div className="flex flex-col items-center justify-center z-10 py-4 md:py-0">
+      <motion.div variants={textVariants}>
+        <span 
+          className={`
+            text-6xl md:text-9xl font-black text-black tracking-[0.1em] uppercase
+            transition-all duration-500 text-center leading-none
+            ${isZoomed ? 'text-transparent bg-clip-text bg-gradient-to-b from-black to-gray-500' : ''}
+          `}
+        >
+          SYNTAQ
+        </span>
+      </motion.div>
+      
+      {/* ADDED: Professional Tagline */}
+      <motion.p 
+        variants={textVariants}
+        className="text-black/40 font-medium text-[10px] md:text-sm tracking-[0.4em] uppercase mt-4"
       >
-        SYNTAQ
-      </span>
-    </motion.div>
+        Digital Evolution Agency
+      </motion.p>
+    </div>
 
-   {/* RIGHT CARD: VIDEO EDITING */}
+   {/* RIGHT CARD: AUTHORITY & CONTENT */}
     <motion.div 
       custom="right"
       variants={cardVariants}
@@ -146,32 +155,30 @@ const HeroContent = ({ isZoomed = false }) => (
     >
       <motion.video 
         src={myEditingVideo}
-        autoPlay 
-        loop 
-        muted 
-        playsInline 
-        className="w-full h-full object-cover opacity-80"
+        autoPlay loop muted playsInline 
+        className="w-full h-full object-cover opacity-60"
         whileHover={{ scale: 1.15 }} 
         transition={{ duration: 0.8 }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/95" />
       <div className="absolute bottom-8 left-0 w-full text-center px-4">
          <motion.div 
            whileHover={{ y: -5 }}
-           className="mb-3 inline-flex p-3 rounded-none bg-purple-500/20 backdrop-blur-md border border-purple-400/30 pl-5"
+           className="mb-3 inline-flex p-3 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-400/30"
          >
-            <Play className="text-white fill-current" size={24} />
+            <Play className="text-purple-400 fill-current" size={24} />
          </motion.div>
-         <h3 className="text-white font-black text-xl md:text-3xl uppercase tracking-widest leading-none">
-          Video Edit
+         <h3 className="text-white font-black text-xl md:text-3xl uppercase tracking-tighter">
+          Captivate
         </h3>
-        <p className="text-purple-400 text-[10px] md:text-sm font-mono mt-2 tracking-widest opacity-80">CINEMATIC CUTS</p>
+        <p className="text-purple-400 text-[10px] md:text-xs font-mono mt-1 tracking-[0.2em] uppercase opacity-90">
+          High-Retention Media
+        </p>
       </div>
     </motion.div>
   </motion.div>
 );
-
 const Hero = () => {
   const containerRef = useRef(null);
   const [hideLens, setHideLens] = useState(false);
