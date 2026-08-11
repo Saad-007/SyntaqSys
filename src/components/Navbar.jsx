@@ -88,11 +88,16 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* BOOK CALL BUTTON (Desktop) */}
+          {/* BOOK MEETING BUTTON (Desktop) */}
           <div className="hidden md:block pl-6 ml-6 border-l border-white/10">
-            <button className="px-5 py-2 bg-cyan-400 text-black text-xs font-bold rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)]">
-              Book Call
-            </button>
+            <a 
+              href="https://calendly.com/syntaqsystem/30min"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block px-5 py-2 bg-cyan-400 text-black text-xs font-bold rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+            >
+              Book Meeting
+            </a>
           </div>
 
           {/* MOBILE TOGGLE BUTTON */}
@@ -134,9 +139,15 @@ const Navbar = () => {
                </div>
 
                {/* Mobile CTA */}
-               <button className="w-full py-4 bg-cyan-400 text-black font-bold rounded-xl hover:bg-white transition-colors shadow-lg shadow-cyan-900/20">
-                 Book a Free Call
-               </button>
+               <a 
+                 href="https://calendly.com/syntaqsystem/30min"
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 onClick={() => setMobileOpen(false)}
+                 className="block text-center w-full py-4 bg-cyan-400 text-black font-bold rounded-xl hover:bg-white transition-colors shadow-lg shadow-cyan-900/20"
+               >
+                 Book a Free Meeting
+               </a>
 
             </div>
           </motion.div>

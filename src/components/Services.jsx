@@ -20,9 +20,9 @@ const services = [
   },
   {
     id: "02",
-    title: "Web Engineering",
-    description: "High-performance SaaS & E-Commerce platforms.",
-    tags: ["React.js", "Node.js", "Next.js"],
+    title: "Website & Mobile Apps",
+    description: "High-performance SaaS, E-Commerce platforms, and custom native mobile applications.",
+    tags: ["React.js", "React Native", "Node.js"],
     icon: <Globe className="w-5 h-5" />,
     // video: myVideo3,
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
@@ -200,10 +200,10 @@ const Services = () => {
                viewport={{ once: true }}
                className="text-5xl md:text-8xl font-black text-black uppercase tracking-tighter leading-[0.9] max-w-5xl"
              >
-               Digital <br/>
-               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
-                 Architecture.
-               </span>
+                Digital <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
+                  Architecture.
+                </span>
              </motion.h2>
           </div>
 
@@ -335,7 +335,7 @@ const Services = () => {
                   <span className="text-xs font-bold tracking-widest uppercase text-gray-300">Vertical Studio</span>
                </div>
                <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
-                  Short Form <br/> <span className="text-purple-600">Dominance.</span>
+                 Short Form <br/> <span className="text-purple-600">Dominance.</span>
                </h2>
             </div>
             

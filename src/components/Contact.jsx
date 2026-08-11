@@ -100,8 +100,10 @@ const ContactCard = () => {
 };
 
 // --- COMPONENT: FORM INPUT WITH ANIMATED LINE ---
-const InputField = ({ label, type = "text", placeholder }) => {
+// --- CORRECTED COMPONENT: FORM INPUT ---
+const InputField = ({ label, type = "text", placeholder, name }) => { // 1. Yahan 'name' prop add kiya
     const [focused, setFocused] = useState(false);
+    
     return (
         <div className="relative group w-full">
             <label className={`block text-xs font-bold uppercase tracking-widest mb-2 md:mb-3 transition-colors duration-300 ${focused ? "text-black" : "text-gray-400"}`}>
@@ -110,6 +112,7 @@ const InputField = ({ label, type = "text", placeholder }) => {
             <div className="relative">
                 <input 
                     type={type} 
+                    name={name} // 2. <--- YAHAN NAME PASS KARNA ZAROORI HAI FORMSPREE KE LIYE
                     placeholder={placeholder}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
@@ -217,10 +220,10 @@ const Contact = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                    <InputField label="01. What's your name?" 
                    name="name"
-                   placeholder="John Doe" />
+                   placeholder="Saad" />
                    <InputField label="02. What's your email?" 
                    name="email"
-                   type="email" placeholder="john@example.com" />
+                   type="email" placeholder="saad@example.com" />
                 </div>
 
 

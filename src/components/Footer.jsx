@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
-import { ArrowUpRight, Globe, Github, Twitter, Linkedin, Instagram } from "lucide-react";
+import { ArrowUpRight, Globe, Twitter, Linkedin, Instagram } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // --- DYNAMIC TIME & LOCATION LOGIC ---
+  const [timeString, setTimeString] = useState('');
+  const [location, setLocation] = useState('');
+
+  useEffect(() => {
+    // 1. User ki Timezone se City extract karna (e.g. "Asia/Karachi" -> "Karachi")
+    try {
+      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const city = userTimeZone.split('/')[1]?.replace(/_/g, ' ') || 'Local';
+      setLocation(city);
+    } catch (e) {
+      setLocation('Local');
+    }
+
+    // 2. Real-time Clock Update Function
+    const updateTime = () => {
+      const now = new Date();
+      const formattedTime = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+      setTimeString(formattedTime);
+    };
+
+    updateTime(); // Run immediately on mount
+    const timer = setInterval(updateTime, 1000); // Update every second
+
+    return () => clearInterval(timer); // Cleanup timer on unmount
+  }, []);
 
   // Smooth scroll to top function
   const scrollToTop = () => {
@@ -28,7 +60,7 @@ const Footer = () => {
                 <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">System Operational</span>
              </div>
              <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-gray-200 leading-snug">
-               Engineering the digital infrastructure for the next generation of brands.
+                Engineering the digital infrastructure for the next generation of brands.
              </h3>
           </div>
 
@@ -63,11 +95,6 @@ const Footer = () => {
                     name: 'Instagram', 
                     icon: <Instagram size={14} />, 
                     url: 'https://www.instagram.com/syntaqsystem/' 
-                  },
-                  { 
-                    name: 'Github', 
-                    icon: <Github size={14} />, 
-                    url: '#' // Add your Github URL here
                   }
                 ].map((social) => (
                    <a 
@@ -111,9 +138,13 @@ const Footer = () => {
            </div>
 
            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+              
+              {/* DYNAMIC LIVE CLOCK BADGE */}
               <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5">
-                 <Globe className="w-3 h-3 text-gray-400" />
-                 <span className="text-xs font-mono text-gray-400">Karachi, PK — 12:42 PM</span>
+                 <Globe className="w-3 h-3 text-gray-400 animate-spin-slow" />
+                 <span className="text-xs font-mono text-gray-400">
+                   {location ? `${location} — ${timeString}` : 'Loading...'}
+                 </span>
               </div>
               
               <button 
