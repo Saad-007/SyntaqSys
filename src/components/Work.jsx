@@ -1,84 +1,153 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X, ExternalLink } from "lucide-react";
+import { ArrowUpRight, X, ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
 
 // --- STEP 1: IMPORT YOUR LOCAL IMAGES HERE ---
 import shopImage from '../assets/image/shopplus.png';
 import resumeImage from '../assets/image/resume.png';
 import TeamsynImage from '../assets/image/Teamsyn.png';
-// Add actual image paths for Social Genius, BodyMax, ApplyMax here if needed.
 
-// --- DATA: REAL PROJECTS ---
+// --- DATA: REAL PROJECTS (CASE STUDY STRUCTURE) ---
 const projects = [
   {
     id: 1,
     title: "Social Genius",
     client: "IOS APP",
     category: "AI Text Analyzer",
-    description: "A production-ready iOS application built with React Native and Expo that evaluates text message emotional risk and generates real-time 'Aura Scores.' Powered by a secure Node.js & Supabase backend using OpenAI, and monetized via auto-renewable subscriptions through RevenueCat.",
-    image: "/social-genius.png", // place in /public or import
-    link: "https://apps.apple.com/us/app/social-genius-text-analyzer/id6776793403", // ADD YOUR LIVE LINK HERE
-    color: "group-hover:text-pink-500"
+    year: "2025",
+    role: "Full-Stack Development",
+    description: "A production-ready iOS application that evaluates text message emotional risk and generates real-time 'Aura Scores.'",
+    challenge: "Users wanted a fast, private way to gauge the emotional tone of conversations before sending — without exposing their messages to a slow or unreliable third-party service.",
+    solution: "Built a React Native + Expo app on top of a secure Node.js & Supabase backend, using OpenAI to score message risk in real time. Subscriptions were handled through RevenueCat for seamless auto-renewal.",
+    stack: ["React Native", "Expo", "Node.js", "Supabase", "OpenAI", "RevenueCat"],
+    results: [
+      { label: "Platform", value: "iOS" },
+      { label: "Response Time", value: "<2s" },
+      { label: "Monetization", value: "Subscriptions" }
+    ],
+    image: "/social-genius.png",
+    link: "https://apps.apple.com/us/app/social-genius-text-analyzer/id6776793403",
+    color: "from-pink-500 to-rose-500"
   },
   {
     id: 2,
     title: "ApplyMax",
     client: "AI CAREER TOOL",
     category: "Resume & ATS Copilot",
-    description: "An intelligent AI copilot that cross-references your resume with target job listings. It actively flags mismatches, scores ATS compatibility, and automatically generates highly optimized, tailored resumes and cover letters to maximize hiring chances.",
-    image: "/applymax.png", // place in /public or import
-    link: "https://www.applymax.online/", // ADD YOUR LIVE LINK HERE
-    color: "group-hover:text-blue-500"
+    year: "2025",
+    role: "Product & Engineering",
+    description: "An intelligent AI copilot that cross-references your resume with target job listings.",
+    challenge: "Job seekers were losing opportunities to ATS filters that silently rejected qualified candidates over formatting and keyword mismatches.",
+    solution: "Built an AI engine that flags mismatches, scores ATS compatibility, and auto-generates tailored resumes and cover letters for each job listing — turning a manual, hours-long task into minutes.",
+    stack: ["Next.js", "OpenAI", "PostgreSQL", "Stripe"],
+    results: [
+      { label: "Time Saved", value: "~3 hrs/app" },
+      { label: "ATS Scoring", value: "Real-time" },
+      { label: "Status", value: "Live" }
+    ],
+    image: "/applymax.png",
+    link: "https://www.applymax.online/",
+    color: "from-blue-500 to-cyan-500"
   },
   {
     id: 3,
     title: "BodyMax",
     client: "FITNESS TECH",
     category: "Multimodal AI Assessment",
-    description: "A multimodal AI pipeline utilizing the GPT-4o API to analyze user-uploaded physique images. It generates accurate fitness evaluations and personalized insights, backed by a hybrid Supabase & Firebase database and a highly interactive Framer Motion frontend.",
-    image: "/bodymax.png", // place in /public or import
-    link: "https://bodymaxx.online/", // ADD YOUR LIVE LINK HERE
-    color: "group-hover:text-orange-500"
+    year: "2025",
+    role: "Full-Stack Development",
+    description: "A multimodal AI pipeline that analyzes user-uploaded physique images for fitness evaluation.",
+    challenge: "Generic fitness apps couldn't give users personalized, visual feedback on their actual physique — only generic templates and calculators.",
+    solution: "Integrated the GPT-4o API to analyze uploaded images and generate accurate, personalized fitness evaluations, backed by a hybrid Supabase & Firebase database and an interactive Framer Motion frontend.",
+    stack: ["GPT-4o API", "Supabase", "Firebase", "Framer Motion"],
+    results: [
+      { label: "AI Model", value: "GPT-4o Vision" },
+      { label: "Analysis Time", value: "<10s" },
+      { label: "Status", value: "Live" }
+    ],
+    image: "/bodymax.png",
+    link: "https://bodymaxx.online/",
+    color: "from-orange-500 to-amber-500"
   },
   {
     id: 4,
     title: "ShopPlus Ecosystem",
     client: "E-COMMERCE",
     category: "Full Stack Platform",
-    description: "A comprehensive MERN stack e-commerce solution featuring secure user authentication, a detailed admin dashboard, real-time inventory management, and intelligent AI product recommendations.",
+    year: "2024",
+    role: "Full-Stack Development",
+    description: "A comprehensive MERN stack e-commerce solution with real-time inventory and AI recommendations.",
+    challenge: "The client needed a scalable storefront with a real admin backend — not a template — including live inventory tracking and personalized product discovery.",
+    solution: "Built a full MERN stack platform with secure authentication, a detailed admin dashboard, real-time inventory management, and an AI-driven recommendation engine to boost average order value.",
+    stack: ["MongoDB", "Express", "React", "Node.js", "AI Recommendations"],
+    results: [
+      { label: "Stack", value: "MERN" },
+      { label: "Admin Panel", value: "Custom Built" },
+      { label: "Inventory", value: "Real-time" }
+    ],
     image: shopImage,
-    link: "", 
-    color: "group-hover:text-purple-500"
+    link: "",
+    color: "from-purple-500 to-fuchsia-500"
   },
   {
     id: 5,
     title: "Resume AI Architect",
     client: "ED-TECH",
     category: "NLP & Scoring Engine",
-    description: "An advanced AI-powered resume builder and analyzer that evaluates resumes and provides actionable scoring and feedback to help candidates land top-tier roles.",
+    year: "2024",
+    role: "AI Engineering",
+    description: "An advanced AI-powered resume builder and analyzer with actionable scoring and feedback.",
+    challenge: "Candidates had no objective way to know if their resume was actually competitive before submitting it — feedback was vague or nonexistent.",
+    solution: "Built an NLP scoring engine that evaluates resumes against role-specific benchmarks and returns clear, actionable feedback to help candidates improve before they apply.",
+    stack: ["Python", "NLP", "OpenAI", "React"],
+    results: [
+      { label: "Engine", value: "Custom NLP" },
+      { label: "Feedback", value: "Actionable" },
+      { label: "Status", value: "Live" }
+    ],
     image: resumeImage,
     link: "",
-    color: "group-hover:text-cyan-500"
+    color: "from-cyan-500 to-teal-500"
   },
   {
     id: 6,
     title: "TeamSync Live",
     client: "SAAS PRODUCT",
     category: "Video & Whiteboard",
-    description: "A real-time collaborative platform integrating a shared whiteboard with Whisper audio transcription and Ollama AI summary generation for seamless team productivity.",
+    year: "2024",
+    role: "Full-Stack Development",
+    description: "A real-time collaborative platform integrating a shared whiteboard with AI meeting summaries.",
+    challenge: "Remote teams were losing context between calls — no single place combined live collaboration with an accurate record of what was discussed.",
+    solution: "Combined a shared real-time whiteboard with Whisper audio transcription and Ollama-powered AI summary generation, giving teams a searchable record of every session automatically.",
+    stack: ["WebRTC", "Whisper", "Ollama", "Node.js"],
+    results: [
+      { label: "Transcription", value: "Real-time" },
+      { label: "Summaries", value: "AI-generated" },
+      { label: "Status", value: "Live" }
+    ],
     image: TeamsynImage,
     link: "",
-    color: "group-hover:text-green-500"
+    color: "from-green-500 to-emerald-500"
   },
   {
     id: 7,
     title: "Viral Ad Campaigns",
     client: "GROWTH MARKETING",
     category: "Paid Media Strategy",
-    description: "High-conversion ad creatives designed for social dominance, rapid audience scaling, and maximizing ROI across multiple digital platforms.",
+    year: "2024",
+    role: "Growth & Creative Strategy",
+    description: "High-conversion ad creatives designed for social dominance and rapid audience scaling.",
+    challenge: "The client's paid campaigns were burning budget with low engagement and no clear creative direction across platforms.",
+    solution: "Developed a testing framework for high-conversion ad creatives across Meta and YouTube, iterating fast on hooks and formats to maximize ROI and scale winning campaigns.",
+    stack: ["Meta Ads", "YouTube Ads", "Creative Strategy"],
+    results: [
+      { label: "Platforms", value: "Meta / YouTube" },
+      { label: "Focus", value: "ROI Scaling" },
+      { label: "Approach", value: "Rapid Testing" }
+    ],
     image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link: "",
-    color: "group-hover:text-orange-500"
+    color: "from-orange-500 to-red-500"
   }
 ];
 
@@ -161,6 +230,145 @@ const ProjectCard = ({ project, index, onClick }) => {
   );
 };
 
+// --- CASE STUDY MODAL ---
+const CaseStudyModal = ({ project, onClose, onNext, onPrev }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-0 md:p-8"
+      onClick={onClose}
+    >
+      {/* Close Button */}
+      <button 
+        onClick={onClose}
+        className="fixed top-4 right-4 md:top-6 md:right-6 text-white/60 hover:text-white transition-colors z-[110] bg-black/50 p-2.5 rounded-full backdrop-blur-md"
+      >
+        <X size={24} />
+      </button>
+
+      {/* Prev / Next Navigation */}
+      <button 
+        onClick={(e) => { e.stopPropagation(); onPrev(); }}
+        className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-[110] bg-black/50 p-3 rounded-full backdrop-blur-md"
+      >
+        <ArrowLeft size={22} />
+      </button>
+      <button 
+        onClick={(e) => { e.stopPropagation(); onNext(); }}
+        className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-[110] bg-black/50 p-3 rounded-full backdrop-blur-md"
+      >
+        <ArrowRight size={22} />
+      </button>
+
+      <motion.div
+        key={project.id}
+        initial={{ scale: 0.95, y: 30, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.95, y: 30, opacity: 0 }}
+        transition={{ type: "spring", damping: 28, stiffness: 220 }}
+        className="relative w-full h-full md:h-auto md:max-w-6xl md:max-h-[90vh] overflow-y-auto bg-[#0A0A0A] md:rounded-2xl shadow-2xl border border-white/10 flex flex-col scrollbar-hide"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Hero Image */}
+        <div className="relative w-full shrink-0 aspect-video md:aspect-[21/9] bg-black overflow-hidden">
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-full object-cover"
+          />
+          <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent`} />
+          <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6">
+            <p className="text-white/60 text-xs md:text-sm font-mono uppercase tracking-[0.2em] mb-2">
+              {project.category} · {project.year}
+            </p>
+            <h3 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
+              {project.title}
+            </h3>
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 p-6 md:p-12">
+          
+          {/* Left: Case Study Copy */}
+          <div className="md:col-span-2 flex flex-col gap-8">
+            <div>
+              <p className="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] mb-3">The Challenge</p>
+              <p className="text-gray-300 text-base md:text-lg leading-relaxed">{project.challenge}</p>
+            </div>
+            <div>
+              <p className="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] mb-3">The Solution</p>
+              <p className="text-gray-300 text-base md:text-lg leading-relaxed">{project.solution}</p>
+            </div>
+
+            {project.link && (
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex w-fit items-center gap-2 px-6 py-3 bg-white text-black text-xs md:text-sm font-bold uppercase tracking-widest rounded-full hover:bg-gray-200 transition-colors shadow-lg"
+              >
+                View Live <ExternalLink size={16} />
+              </a>
+            )}
+          </div>
+
+          {/* Right: Meta Info Sidebar */}
+          <div className="flex flex-col gap-8 md:border-l md:border-white/10 md:pl-10">
+            
+            {/* Info */}
+            <div className="flex flex-col gap-4">
+              <div>
+                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Client</p>
+                <p className="text-white text-sm font-mono">{project.client}</p>
+              </div>
+              <div>
+                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Role</p>
+                <p className="text-white text-sm font-mono">{project.role}</p>
+              </div>
+              <div>
+                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Year</p>
+                <p className="text-white text-sm font-mono">{project.year}</p>
+              </div>
+            </div>
+
+            {/* Tech Stack */}
+            <div>
+              <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Stack</p>
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
+                  <span 
+                    key={tech} 
+                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-[11px] font-medium text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Results */}
+            <div>
+              <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Highlights</p>
+              <div className="flex flex-col gap-3">
+                {project.results.map((r) => (
+                  <div key={r.label} className="flex justify-between items-baseline border-b border-white/5 pb-2">
+                    <span className="text-gray-500 text-xs uppercase tracking-wider">{r.label}</span>
+                    <span className="text-white text-sm font-bold font-mono">{r.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 // --- MAIN WORK COMPONENT ---
 const Work = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -176,6 +384,18 @@ const Work = () => {
       document.body.style.overflow = 'unset';
     };
   }, [selectedProject]);
+
+  const handleNext = () => {
+    const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
+    const nextIndex = (currentIndex + 1) % projects.length;
+    setSelectedProject(projects[nextIndex]);
+  };
+
+  const handlePrev = () => {
+    const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
+    const prevIndex = (currentIndex - 1 + projects.length) % projects.length;
+    setSelectedProject(projects[prevIndex]);
+  };
 
   return (
     <section id="work" className="py-20 md:py-32 bg-[#F5F5F7] relative overflow-hidden font-sans">
@@ -213,67 +433,15 @@ const Work = () => {
         </div>
       </div>
 
-      {/* --- IMAGE SHOWCASE MODAL --- */}
-      <AnimatePresence>
+      {/* --- CASE STUDY MODAL --- */}
+      <AnimatePresence mode="wait">
         {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-8"
-            onClick={() => setSelectedProject(null)}
-          >
-            {/* Close Button - fixed outside the scrollable area */}
-            <button className="fixed top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-white transition-colors z-[110] bg-black/50 p-2 rounded-full md:bg-transparent md:p-0">
-              <X size={32} />
-            </button>
-
-            {/* Modal Content - ADDED: max-h-[90vh] overflow-y-auto */}
-            <motion.div
-              initial={{ scale: 0.9, y: 50, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.9, y: 50, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-[#111] rounded-2xl shadow-2xl border border-white/10 flex flex-col scrollbar-hide"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Image Container */}
-              <div className="w-full shrink-0 aspect-video md:aspect-[21/9] bg-black">
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.title} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Text Content */}
-              <div className="p-6 md:p-10 flex flex-col md:flex-row justify-between items-start gap-6 shrink-0">
-                <div className="max-w-2xl">
-                  <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight mb-3">
-                    {selectedProject.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                    {selectedProject.description}
-                  </p>
-                  
-                  {selectedProject.link && (
-                    <a 
-                      href={selectedProject.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs md:text-sm font-bold uppercase tracking-widest rounded-full hover:bg-gray-200 transition-colors shadow-lg"
-                    >
-                      View Live <ExternalLink size={16} />
-                    </a>
-                  )}
-                </div>
-                
-                <div className="flex flex-shrink-0 items-center gap-2 px-4 py-2 border border-white/20 rounded-full text-white/80 text-xs font-mono uppercase tracking-widest">
-                  {selectedProject.client}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
+          <CaseStudyModal 
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+            onNext={handleNext}
+            onPrev={handlePrev}
+          />
         )}
       </AnimatePresence>
 

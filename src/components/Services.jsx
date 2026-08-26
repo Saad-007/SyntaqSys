@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Cpu, Globe, Video, Play, X, Instagram, Megaphone } from "lucide-react";
+import { ArrowUpRight, Cpu, Globe, Video, Play, X, Instagram, Megaphone, Phone } from "lucide-react";
 
 // --- IMPORT LOCAL VIDEOS ---
 import myVideo1 from '../assets/video/minimal.mp4'; 
@@ -29,22 +29,29 @@ const services = [
   },
   {
     id: "03",
+    title: "AI Voice Agents",
+    description: "AI receptionists that answer, qualify, and book appointments — 24/7, even when you're closed.",
+    tags: ["Vapi", "Calendar Sync", "24/7 Booking"],
+    icon: <Phone className="w-5 h-5" />,
+    // video: null,
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "04",
     title: "Cinematic Editing",
     description: "High-retention video assets for social dominance.",
     tags: ["Premiere", "After Effects", "Sound"],
     icon: <Video className="w-5 h-5" />,
     // video: null, 
-    // FIXED: Direct Link to AE Image
     image: "https://images.unsplash.com/photo-1740174459694-4da6669ef2b0?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    id: "04",
+    id: "05",
     title: "Growth Marketing",
     description: "Paid Ads & Social Media Management to scale your brand.",
     tags: ["Meta Ads", "YouTube Growth", "Content Strategy"],
     icon: <Megaphone className="w-5 h-5" />,
     // video: null,
-    // Image representing ads/analytics
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
   }
 ];
@@ -214,7 +221,6 @@ const Services = () => {
               {services.map((service, index) => (
                 <div 
                   key={service.id}
-                  // Interaction: Hover on Desktop, Click on Mobile
                   onMouseEnter={() => setActiveService(index)}
                   onClick={() => setActiveService(index)}
                   className="group relative border-t border-black/10 last:border-b py-8 md:py-10 cursor-pointer transition-all duration-300"

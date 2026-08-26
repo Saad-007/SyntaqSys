@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Play, Cpu } from "lucide-react";
-// Ensure this path is correct
-import myEditingVideo from '../assets/video/Newcar.mp4'; 
+import { Code2, Bot } from "lucide-react";
 
 // --- ANIMATION VARIANTS ---
 const containerVariants = {
@@ -16,15 +14,12 @@ const containerVariants = {
   }
 };
 
-// --- UPDATED: SMOOTH 30 DEGREE ENTRANCE ---
+// --- SMOOTH 30 DEGREE ENTRANCE ---
 const cardVariants = {
   hidden: (direction) => ({
     opacity: 0,
-    // Start from further down for dramatic effect
     y: 150, 
-    // Slide in from further out (Left or Right)
     x: direction === 'left' ? -200 : 200, 
-    // The specific 30 degree rotation you asked for
     rotate: direction === 'left' ? -30 : 30, 
     filter: "blur(20px)",
     scale: 0.8
@@ -33,13 +28,10 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     x: 0,
-    // Settle at a slight angle for style (or use 0 for perfectly straight)
     rotate: direction === 'left' ? -6 : 6, 
     filter: "blur(0px)",
     scale: 1,
     transition: {
-      // Custom Bezier curve for "Beautiful/Smooth" motion
-      // Starts fast, ends very slow (no bounce/legs)
       duration: 1.4, 
       ease: [0.25, 1, 0.5, 1] 
     }
@@ -67,7 +59,6 @@ const textVariants = {
 };
 
 // --- CONTENT COMPONENT ---
-// --- UPDATED CONTENT COMPONENT ---
 const HeroContent = ({ isZoomed = false }) => (
   <motion.div 
     variants={containerVariants}
@@ -82,7 +73,7 @@ const HeroContent = ({ isZoomed = false }) => (
     `}
   >
     
-    {/* LEFT CARD: SCALE & AUTOMATE */}
+    {/* LEFT CARD: WEB & APP */}
     <motion.div 
       custom="left"
       variants={cardVariants}
@@ -91,29 +82,29 @@ const HeroContent = ({ isZoomed = false }) => (
       className={`
         relative w-64 h-[350px] md:w-80 md:h-[500px] rounded-2xl overflow-hidden 
         bg-black shadow-2xl group shrink-0
-        ${isZoomed ? 'border-[3px] border-green-400' : 'border-[3px] border-white/80'}
+        ${isZoomed ? 'border-[3px] border-cyan-400' : 'border-[3px] border-white/80'}
       `}
     >
       <motion.img 
-        src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" 
-        className="w-full h-full object-cover opacity-60" // Lower opacity for more "premium" feel
+        src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?auto=format&fit=crop&w=800&q=80" 
+        className="w-full h-full object-cover opacity-60"
         whileHover={{ scale: 1.15 }}
         transition={{ duration: 0.8 }}
-        alt="Automation"
+        alt="Web & App Development"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/95" />
       <div className="absolute bottom-8 left-0 w-full text-center px-4">
         <motion.div 
           whileHover={{ y: -5 }}
-          className="mb-3 inline-flex p-3 rounded-full bg-green-500/20 backdrop-blur-md border border-green-400/30"
+          className="mb-3 inline-flex p-3 rounded-full bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30"
         >
-           <Cpu size={24} className="text-green-400" />
+           <Code2 size={24} className="text-cyan-400" />
         </motion.div>
         <h3 className="text-white font-black text-xl md:text-3xl uppercase tracking-tighter">
-          Automate
+          Web &amp; App
         </h3>
-        <p className="text-green-400 text-[10px] md:text-xs font-mono mt-1 tracking-[0.2em] uppercase opacity-90">
-          Systems that Scale
+        <p className="text-cyan-400 text-[10px] md:text-xs font-mono mt-1 tracking-[0.2em] uppercase opacity-90">
+          Full-Stack Development
         </p>
       </div>
     </motion.div>
@@ -132,7 +123,6 @@ const HeroContent = ({ isZoomed = false }) => (
         </span>
       </motion.div>
       
-      {/* ADDED: Professional Tagline */}
       <motion.p 
         variants={textVariants}
         className="text-black/40 font-medium text-[10px] md:text-sm tracking-[0.4em] uppercase mt-4"
@@ -141,7 +131,7 @@ const HeroContent = ({ isZoomed = false }) => (
       </motion.p>
     </div>
 
-   {/* RIGHT CARD: AUTHORITY & CONTENT */}
+    {/* RIGHT CARD: AI AUTOMATION & VOICE AGENTS */}
     <motion.div 
       custom="right"
       variants={cardVariants}
@@ -153,32 +143,32 @@ const HeroContent = ({ isZoomed = false }) => (
         ${isZoomed ? 'border-[3px] border-purple-500' : 'border-[3px] border-white/80'}
       `}
     >
-      <motion.video 
-        src={myEditingVideo}
-        autoPlay loop muted playsInline 
+      <motion.img 
+        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" 
         className="w-full h-full object-cover opacity-60"
-        whileHover={{ scale: 1.15 }} 
+        whileHover={{ scale: 1.15 }}
         transition={{ duration: 0.8 }}
+        alt="AI Automation & Voice Agents"
       />
-
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/95" />
       <div className="absolute bottom-8 left-0 w-full text-center px-4">
          <motion.div 
            whileHover={{ y: -5 }}
            className="mb-3 inline-flex p-3 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-400/30"
          >
-            <Play className="text-purple-400 fill-current" size={24} />
+            <Bot className="text-purple-400" size={24} />
          </motion.div>
          <h3 className="text-white font-black text-xl md:text-3xl uppercase tracking-tighter">
-          Captivate
+          AI Automation
         </h3>
         <p className="text-purple-400 text-[10px] md:text-xs font-mono mt-1 tracking-[0.2em] uppercase opacity-90">
-          High-Retention Media
+          Voice Agents &amp; Assistants
         </p>
       </div>
     </motion.div>
   </motion.div>
 );
+
 const Hero = () => {
   const containerRef = useRef(null);
   const [hideLens, setHideLens] = useState(false);
@@ -200,7 +190,6 @@ const Hero = () => {
     x.set(clientX - innerWidth / 2);
     y.set(clientY - innerHeight / 2);
 
-    // Hide lens if near the navbar (top 120px)
     if (clientY < 120) {
        setHideLens(true);
     } else {
@@ -212,7 +201,6 @@ const Hero = () => {
     <section 
       ref={containerRef} 
       onMouseMove={handleMouseMove}
-      // RESPONSIVE HEIGHT: Auto on mobile to fit content, Screen on desktop
       className="relative w-full min-h-screen md:h-screen bg-[#F5F5F7] overflow-hidden flex flex-col items-center justify-center font-sans py-20 md:py-0"
     >
       
@@ -226,17 +214,12 @@ const Hero = () => {
          <div className="absolute top-[-20%] left-[50%] -translate-x-1/2 w-[800px] md:w-[1200px] h-[800px] md:h-[1200px] bg-white rounded-full blur-[80px] md:blur-[120px] opacity-100" />
       </motion.div>
 
-      {/* =========================================================
-          LAYER 1: REALITY
-      ========================================================= */}
+      {/* LAYER 1: REALITY */}
       <div className="relative z-10 pointer-events-none select-none">
          <HeroContent isZoomed={false} />
       </div>
 
-
-      {/* =========================================================
-          LAYER 2: THE WATER BALL (Z-Index 30 to sit below Navbar)
-      ========================================================= */}
+      {/* LAYER 2: THE WATER BALL */}
       <motion.div 
         style={{ x: mouseX, y: mouseY }}
         className={`
@@ -261,7 +244,6 @@ const Hero = () => {
            
            className="relative w-full h-full overflow-hidden bg-[#F5F5F7] shadow-[inset_15px_15px_40px_rgba(255,255,255,1),_inset_-15px_-15px_40px_rgba(0,0,0,0.1),_10px_20px_50px_rgba(0,0,0,0.2)] border-[2px] border-white/40"
         >
-          {/* CONTENT INSIDE */}
           <motion.div 
             style={{ x: innerX, y: innerY }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-screen h-screen"
